@@ -60,7 +60,7 @@ class Parameters:
         self.b_C = Param('b_C', np.zeros((H_size, 1)))
         self.W_o = Param('W_o', np.random.randn(H_size, z_size) * weight_sd + 0.5)
         self.b_o = Param('b_o', np.zeros((H_size, 1)))
-        self.W_v = Param('W_v', np.random.randn(n_classes, H_size) * weigth_sd)
+        self.W_v = Param('W_v', np.random.randn(n_classes, H_size) * weight_sd)
         self.b_v = Param('b_v', np.zeros((n_classes, 1)))
 
     def all(self):
