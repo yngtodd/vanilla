@@ -28,7 +28,7 @@ class Param:
 
 
 class Parameters:
-    def __init__(self, z_size, H_size=100, weight_sd=0.1):
+    def __init__(self, z_size, H_size, n_classes, weight_sd=0.1):
         """
         Parameters of our LSTM.
 
@@ -46,6 +46,9 @@ class Parameters:
         * `b_*`: [numpy array]
             Biases of the net at layer *.
 
+        * `n_classes`: [int]
+            Number of classes to predict.
+
         *  `weight_sd`: [float, default=0.1]
             Standard deviation of weights for initizialization.
         """
@@ -57,8 +60,8 @@ class Parameters:
         self.b_C = Param('b_C', np.zeros((H_size, 1)))
         self.W_o = Param('W_o', np.random.randn(H_size, z_size) * weight_sd + 0.5)
         self.b_o = Param('b_o', np.zeros((H_size, 1)))
-        self.W_v = Param('W_v', np.random.randn(X_size, H_size) * weigth_sd)
-        self.b_v = Param('b_v', np.zeros((X_size, 1)))
+        self.W_v = Param('W_v', np.random.randn(n_classes, H_size) * weigth_sd)
+        self.b_v = Param('b_v', np.zeros((n_classes, 1)))
 
     def all(self):
         return [self.W_f, self.W_i, self.W_C, self.W_o, self.Wv,
