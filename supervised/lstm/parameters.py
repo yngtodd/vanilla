@@ -64,5 +64,5 @@ class Parameters:
         self.b_v = Param('b_v', np.zeros((n_classes, 1)))
 
     def all(self):
-        return [self.W_f, self.W_i, self.W_C, self.W_o, self.Wv,
+        return [self.W_f, self.W_i, self.W_C, self.W_o, self.W_v,
                 self.b_f, self.b_i, self.b_C, self.b_o, self.b_v]
