@@ -1,6 +1,5 @@
 import numpy as np
-
-from collections import OrderedDict
+import pickle
 
 
 class Param:
@@ -73,10 +72,25 @@ class Parameters:
         self.b_v = Param('b_v', np.zeros((n_classes, 1)))
 
     def __str__(self):
-        return "LSTM weights and biases."""
+        return 'LSTM weights and biases.'
 
-    def get_params(self):
-        return 
+    def get_params(Parameters):
+        """Get dictionary of class attributes."""
+        return Parameters.__dict__
+
+    def save(self, filename):
+        """Save model weights."""
+        weights = self.get_params()
+        with open(filename + '.vanilla', 'wb') as f:
+            pickle.dump(weights, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+    def load(self, filename):
+        """Load saved model weights."""
+        with open(filename, 'rb') as f:
+            weights = pickle.load(f)
+
+        for key, value in weights.items():
+            setattr(self, key, value)
 
     def all(self):
         return [self.W_f, self.W_i, self.W_C, self.W_o, self.W_v,
