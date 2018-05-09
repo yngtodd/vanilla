@@ -1,5 +1,7 @@
 import numpy as np
 
+from collections import OrderedDict
+
 
 class Param:
     def __init__(self, name, value):
@@ -72,6 +74,9 @@ class Parameters:
 
     def __str__(self):
         return "LSTM weights and biases."""
+
+    def get_params(self):
+        return 
 
     def all(self):
         return [self.W_f, self.W_i, self.W_C, self.W_o, self.W_v,
