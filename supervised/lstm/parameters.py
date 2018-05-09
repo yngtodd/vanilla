@@ -29,10 +29,8 @@ class Param:
     def __str__(self):
         return "Parameter: {}\nCurrent Values:\n{}".format(self.name, self.v)
 
-    def _showvals(self):
-        """Pretty print numpy array"""
-        print(np.array_str(self.v, precision=2))
-
+    def shape(self):
+        print("Parameter: {}, Shape: {}".format(self.name, self.v.shape))
 
 
 class Parameters:
