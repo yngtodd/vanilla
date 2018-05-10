@@ -72,6 +72,13 @@ class Parameters:
     def __str__(self):
         return 'LSTM weights and biases.'
 
+    def clear_gradients(Parameters):
+        for _, param in Parameters.__dict__.items():
+            param.d.fill(0)
+
+    def clip_gradients(self):
+        pass
+
     def get_params(Parameters):
         """Get dictionary of class attributes."""
         return Parameters.__dict__
