@@ -72,7 +72,7 @@ class Parameters:
     def __str__(self):
         return 'LSTM weights and biases.'
 
-    def clear_gradients(Parameters):
+    def zero_gradients(Parameters):
         """Zero out gradients."""
         for _, param in Parameters.__dict__.items():
             param.d.fill(0)
