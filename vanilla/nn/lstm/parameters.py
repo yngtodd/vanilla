@@ -11,13 +11,13 @@ class Param:
         ----------
         * `name`: [str]
             Name of the parameter.
-        
+
         * `value`: [numpy array]
             Value for the parameter.
 
         * `d`: [numpy array]
             Derivative of the parameter values.
-        
+
         * `m`: [numpy array]
             Momentum for AdaGrad.
         """
@@ -44,7 +44,7 @@ class Parameters:
             Hidden dimension size.
 
         * `z_size`: [int]
-            Size of concatenate (H, X) vector. 
+            Size of concatenate (H, X) vector.
 
         * `W_*`: [numpy array]
             Weights of the net at layer *.
