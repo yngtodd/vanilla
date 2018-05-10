@@ -76,8 +76,9 @@ class Parameters:
         for _, param in Parameters.__dict__.items():
             param.d.fill(0)
 
-    def clip_gradients(self):
-        pass
+    def clip_gradients(Parameters):
+        for _, param in Parameters.__dict__.items():
+            np.clip(param.d, -1, 1, out=param.d)
 
     def get_params(Parameters):
         """Get dictionary of class attributes."""
