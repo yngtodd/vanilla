@@ -73,10 +73,12 @@ class Parameters:
         return 'LSTM weights and biases.'
 
     def clear_gradients(Parameters):
+        """Zero out gradients."""
         for _, param in Parameters.__dict__.items():
             param.d.fill(0)
 
     def clip_gradients(Parameters):
+        """Clip gradients between -1 and 1."""
         for _, param in Parameters.__dict__.items():
             np.clip(param.d, -1, 1, out=param.d)
 
