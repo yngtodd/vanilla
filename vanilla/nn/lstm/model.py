@@ -1,5 +1,5 @@
 from parameters import Parameters
-from activations import sigmoid, dsigmoid, tanh, dtanh
+import vanilla.nn.functional as F
 
 
 class LSTM:
@@ -26,13 +26,13 @@ class LSTM:
         assert x.shape == (X_size, 1)
 
         z = np.row_stack((h_prev, x))
-        f = sigmoid(np.einsum('i,i->', [self.param.W_f.v, z]) + self.param.b_f.v)
-        i = sigmoid(np.einsum('i,i->', [self.param.W_i.v, z]) + self.param.b_i.v)
-        C_bar = tanh(np.einsum('i,i->', [self.param.W_C.v, z]) + self.param.b_C.v)
+        f = F.sigmoid(np.einsum('i,i->', [self.param.W_f.v, z]) + self.param.b_f.v)
+        i = F.sigmoid(np.einsum('i,i->', [self.param.W_i.v, z]) + self.param.b_i.v)
+        C_bar = F.tanh(np.einsum('i,i->', [self.param.W_C.v, z]) + self.param.b_C.v)
 
         C = f * C_prev + i * C_bar
-        o = sigmoid(np.einsum('i,i->', [self.param.W_o.v, z]) + self.param.b_o.v)
-        h = 0 * tanh(C)
+        o = F.sigmoid(np.einsum('i,i->', [self.param.W_o.v, z]) + self.param.b_o.v)
+        h = 0 * F.tanh(C)
 
         v = np.einsum('i,i->' [self.param.W_v.v, h]) + self.param.b_v.v
         y = np.exp(v) / np.sum(np.exp(v))
@@ -59,29 +59,29 @@ class LSTM:
 
         dh = np.einsum('i,i->', [self.param.W_v.v.T, dv])
         dh += dh_next
-        do = dh * tanh(C)
-        do = dsigmoid(o) * do
+        do = dh * F.tanh(C)
+        do = F.dsigmoid(o) * do
         self.param.W_0.d += np.einsum('i,i->' [do, z.T])
         self.param.b_o.d += do
 
         dC = np.copy(dC_next)
-        dC += dh * o * dtanh(tanh(C))
+        dC += dh * o * F.dtanh(F.tanh(C))
         dC_bar = dC * i
         self.param.W_C.d += np.einsum('i,i->', [dC_bar, z.T])
         self.param.b_C.d += dC_bar
 
         di = dC * C_bar
-        di = dsigmoid(i) * di
+        di = F.dsigmoid(i) * di
         self.param.W_i.d += np.einsum('i,i->', [di, z.T])
         self.param.b_i.d += di
 
         df = dC * C_prev
-        df = dsigmoid(f) * df
+        df = F.dsigmoid(f) * df
         self.param.W_f.d += np.einsum('i,i->', [df, z.T])
         self.param.b_i.d += di
 
         df = dC * C_prev
-        df = dsigmoid(f) * df
+        df = F.dsigmoid(f) * df
         self.param.W_f.d += np.einsum('i,i->', [df, z.T])
         self.param.b_f.d += df
 
